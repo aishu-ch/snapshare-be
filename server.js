@@ -4,6 +4,7 @@ import { connectToMongoDB } from './config/database.js'
 import cors from 'cors'
 import bodyParser from 'body-parser'
 import { cloudinaryConfig } from './config/cloudinary.js'
+import userRoutes from './routes/user.js'
 
 const app = express()
 dotenv.config()
@@ -19,6 +20,8 @@ app.get('/', (req, res) => {
   })
 
 // Backend API routes
+app.use('/api/user', userRoutes)
+
 
 // Connecting to server
   app.listen(process.env.PORT, (error) =>{
