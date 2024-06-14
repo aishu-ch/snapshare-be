@@ -3,10 +3,10 @@ import { registerNewUser, loginUser, getUserbyUsername, followUser, unfollowUser
 import { requireLogin } from '../utils/auth.js'
 
 const router = express.Router()
-router.use(requireLogin)
 
 router.post('/register', registerNewUser)
 router.post('/login', loginUser)
+router.use(requireLogin)
 router.get('/:username', getUserbyUsername)
 router.post('/:username/follow', followUser)
 router.post('/:username/unfollow', unfollowUser)

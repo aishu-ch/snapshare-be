@@ -2,7 +2,7 @@ import Post from "../models/post.js";
 import User from "../models/user.js";
 import path from "path";
 import DatauriParser from "datauri/parser.js";
-import { uploader } from "../utils/cloudinary.js";
+import { uploader } from "../config/cloudinary.js";
 
 export const createPost = async (req, res) => {
   console.log(req.body);
