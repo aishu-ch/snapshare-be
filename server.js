@@ -5,6 +5,9 @@ import cors from 'cors'
 import bodyParser from 'body-parser'
 import { cloudinaryConfig } from './config/cloudinary.js'
 import userRoutes from './routes/user.js'
+import profileRoutes from './routes/profile.js'
+import postRoutes from './routes/post.js'
+import commentRoutes from './routes/comment.js'
 
 const app = express()
 dotenv.config()
@@ -21,6 +24,9 @@ app.get('/', (req, res) => {
 
 // Backend API routes
 app.use('/api/user', userRoutes)
+app.use('/api/profile', profileRoutes)
+app.use('/api/posts', postRoutes)
+app.use('/api/comments', commentRoutes)
 
 
 // Connecting to server
