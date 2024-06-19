@@ -3,6 +3,7 @@ import User from "../models/user.js";
 import path from "path";
 import DatauriParser from "datauri/parser.js";
 import { uploader } from "../config/cloudinary.js";
+import { match } from "assert";
 
 export const createPost = async (req, res) => {
   console.log(req.body);
@@ -88,12 +89,32 @@ export const editPostCaption = async (req, res) => {
   }
 };
 
-export const getAllPosts = async (req, res) => {
+export const getExplorePosts = async (req, res) => {
   try {
-    const posts = await Post.find()
-      .populate("postedBy")
-      .populate({ path: "likes", select: "userName profilePic" });
-    res.status(200).json(posts);
+    Post.aggregate([
+      {
+        $lookup: {
+          from: "users",
+          localField: "postedBy",
+          foreignField: "_id",
+          as: "user",
+        },
+      },
+      {
+        $unwind: "$user",
+      },
+      {
+        $match: {
+          "user.userName": { $ne: req.query.userName },
+        },
+      },
+    ])
+      .exec()
+      .then((posts) => {
+        console.log(posts);
+        res.status(200).json(posts);
+      })
+      .then((err) => console.error(err));
   } catch (err) {
     throw err;
   }
