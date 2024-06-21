@@ -93,12 +93,12 @@ export const followUser = asyncHandler(async (req, res, next) => {
         { $push: { followers: req.user }, $inc: { followerCount: 1 } },
         { new: true }
       );
-      await User.findOneAndUpdate(
+      const addFollower = await User.findOneAndUpdate(
         { _id: req.user },
         { $push: { following: user._id }, $inc: { followingCount: 1 } },
         { new: true }
       ).then(console.log("User Followed"));
-      return res;
+      return res.status(200).json(addFollower);
     } catch (err) {
       console.log(err);
     }
@@ -124,12 +124,12 @@ export const unfollowUser = asyncHandler(async (req, res, next) => {
         { $pull: { followers: req.user }, $inc: { followerCount: -1 } },
         { new: true }
       );
-      await User.findByIdAndUpdate(
+      const removeFollower = await User.findByIdAndUpdate(
         req.user,
         { $pull: { following: user._id }, $inc: { followingCount: -1 } },
         { new: true }
       ).then(console.log("User unfollowed"));
-      return res;
+      return res.status(200).json(removeFollower);
     } catch (err) {
       console.log(err);
     }

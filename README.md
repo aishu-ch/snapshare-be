@@ -30,7 +30,7 @@ An app where you can
 
 
 ## **Deployment**
-You can find the app [here](snap--share.vercel.app).
+You can find the app [here](https://snap--share.vercel.app).
 
 
 ### Link for frontend repo is [here](https://github.com/aishu-ch/snapshare-fe).
